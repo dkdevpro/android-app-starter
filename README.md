@@ -1,2 +1,5 @@
 # android-minimalist
-Android project with basic setup to kick start your app development.
+
+The idea is to setup android project with essential architecture and basic libs to start app development. 
+
+

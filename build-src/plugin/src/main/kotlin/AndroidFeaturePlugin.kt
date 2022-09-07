@@ -17,21 +17,19 @@ class AndroidFeaturePlugin : Plugin<Project> {
       }
       extensions.configure<LibraryExtension> {
         defaultConfig {
-          testInstrumentationRunner =
-            "com.google.samples.apps.nowinandroid.core.testing.NiaTestRunner"
+          testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         }
       }
 
       val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
       dependencies {
-//        add("implementation", project(":core-model"))
-//        add("implementation", project(":core-ui"))
-//        add("implementation", project(":core-designsystem"))
-//        add("implementation", project(":core-data"))
-//        add("implementation", project(":core-common"))
-//        add("implementation", project(":core-navigation"))
-//
+        add("implementation", project(":core-model"))
+        add("implementation", project(":core-ui"))
+        add("implementation", project(":core-data"))
+        add("implementation", project(":core-common"))
+        add("implementation", project(":core-navigation"))
+
 //        add("testImplementation", project(":core-testing"))
 //        add("androidTestImplementation", project(":core-testing"))
 

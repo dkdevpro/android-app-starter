@@ -15,3 +15,14 @@ dependencyResolutionManagement {
 }
 rootProject.name = "android-minimalist"
 include(":app")
+include(":core-navigation")
+include(":feature-add-notes")
+//include(":feature-edit-notes")
+//include(":feature-notes-list")
+include(":core-common")
+include(":core-data")
+include(":core-database")
+include(":core-model")
+include(":core-retrofit-network")
+include(":core-ui")
+

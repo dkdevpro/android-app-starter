@@ -5,6 +5,8 @@ The idea is to setup android project with essential architecture and basic libs 
 Todo app demonstrates to have basic components to ease app development. It should provide you component that are not 
 available in android studio default template plugin.
 
+I'd want to explore things that can keep app development in parallel and reduce usual development time.
+
 Feel free to raise your feedback/queries 
 
 

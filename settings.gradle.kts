@@ -23,6 +23,7 @@ include(":core-common")
 include(":core-data")
 include(":core-database")
 include(":core-model")
-include(":core-retrofit-network")
+include(":core-network-retrofit")
+include(":core-network-ktor")
 include(":core-ui")
 

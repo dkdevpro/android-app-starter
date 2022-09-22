@@ -1,4 +1,7 @@
 # android-minimalist
+<p>
+<img src="https://img.shields.io/badge/STATUS-IN%20DEVELOPMENT-brightgreen" alt=""/>
+</p>
 
 The idea is to setup android project with essential architecture and basic libs to start app development. 
 

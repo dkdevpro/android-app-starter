@@ -13,17 +13,16 @@ dependencyResolutionManagement {
     mavenCentral()
   }
 }
-rootProject.name = "android-minimalist"
+rootProject.name = "android-boilerplate-latest"
 include(":app")
-include(":core-navigation")
-include(":feature-add-notes")
+include(":core:navigation")
+include(":feature:add-notes")
 //include(":feature-edit-notes")
 //include(":feature-notes-list")
-include(":core-common")
-include(":core-data")
-include(":core-database")
-include(":core-model")
-include(":core-network-retrofit")
-include(":core-network-ktor")
-include(":core-ui")
+include(":core:common")
+include(":core:data")
+include(":core:database")
+include(":core:model")
+include(":core:network")
+include(":core:ui")
 

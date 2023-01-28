@@ -24,11 +24,11 @@ class AndroidFeaturePlugin : Plugin<Project> {
       val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
       dependencies {
-        add("implementation", project(":core-model"))
-        add("implementation", project(":core-ui"))
-        add("implementation", project(":core-data"))
-        add("implementation", project(":core-common"))
-        add("implementation", project(":core-navigation"))
+        add("implementation", project(":core:model"))
+        add("implementation", project(":core:ui"))
+        add("implementation", project(":core:data"))
+        add("implementation", project(":core:common"))
+        add("implementation", project(":core:navigation"))
 
 //        add("testImplementation", project(":core-testing"))
 //        add("androidTestImplementation", project(":core-testing"))
@@ -36,9 +36,7 @@ class AndroidFeaturePlugin : Plugin<Project> {
         add("implementation", libs.findLibrary("androidx.hilt.navigation.compose").get())
         add("implementation", libs.findLibrary("androidx.lifecycle.runtimeCompose").get())
         add("implementation", libs.findLibrary("androidx.lifecycle.viewModelCompose").get())
-
         add("implementation", libs.findLibrary("kotlinx.coroutines.android").get())
-
         add("implementation", libs.findLibrary("hilt.android").get())
         add("kapt", libs.findLibrary("hilt.compiler").get())
 

@@ -1,4 +1,4 @@
-# Android Template - 2023
+# Android App and SDK Template - 2023
 <p>
 <img src="https://img.shields.io/badge/STATUS-IN%20DEVELOPMENT-brightgreen" alt=""/>
 </p>

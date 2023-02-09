@@ -1,9 +1,9 @@
 
 plugins {
-    id("codewithdk.android.library")
-    id("codewithdk.android.feature")
-    id("codewithdk.android.library.compose")
-    id("codewithdk.android.library.jacoco")
+    id("dineshktech.android.library")
+    id("dineshktech.android.feature")
+    id("dineshktech.android.library.compose")
+    id("dineshktech.android.library.jacoco")
     id("dagger.hilt.android.plugin")
 }
 

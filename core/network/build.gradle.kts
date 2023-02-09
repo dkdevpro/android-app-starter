@@ -1,6 +1,6 @@
 plugins {
-    id("codewithdk.android.library")
-    id("codewithdk.android.library.jacoco")
+    id("dineshktech.android.library")
+    id("dineshktech.android.library.jacoco")
     kotlin("kapt")
     id("kotlinx-serialization")
     id("dagger.hilt.android.plugin")

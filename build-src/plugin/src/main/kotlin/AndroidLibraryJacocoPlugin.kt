@@ -1,5 +1,5 @@
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
-import dev.codewithdk.minimalist.configureJacoco
+import dev.dineshktech.app.starter.configureJacoco
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByType

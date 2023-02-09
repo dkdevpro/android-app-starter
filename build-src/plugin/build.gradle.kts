@@ -2,11 +2,11 @@ plugins {
   `kotlin-dsl`
 }
 
-group = "dev.codewithdk.minimalist.build_src"
+group = "dev.dineshktech.app.starter.build_src"
 
 java {
-  sourceCompatibility = JavaVersion.VERSION_1_8
-  targetCompatibility = JavaVersion.VERSION_1_8
+  sourceCompatibility = JavaVersion.VERSION_11
+  targetCompatibility = JavaVersion.VERSION_11
 }
 
 dependencies {
@@ -17,39 +17,39 @@ dependencies {
 gradlePlugin {
   plugins {
     register("androidApplicationCompose") {
-      id = "codewithdk.android.application.compose"
+      id = "dineshktech.android.application.compose"
       implementationClass = "ApplicationComposePlugin"
     }
     register("androidApplication") {
-      id = "codewithdk.android.application"
+      id = "dineshktech.android.application"
       implementationClass = "ApplicationPlugin"
     }
     register("androidApplicationJacoco") {
-      id = "codewithdk.android.application.jacoco"
+      id = "dineshktech.android.application.jacoco"
       implementationClass = "ApplicationJacocoPlugin"
     }
     register("androidLibraryCompose") {
-      id = "codewithdk.android.library.compose"
+      id = "dineshktech.android.library.compose"
       implementationClass = "AndroidLibraryComposePlugin"
     }
     register("androidLibrary") {
-      id = "codewithdk.android.library"
+      id = "dineshktech.android.library"
       implementationClass = "AndroidLibraryPlugin"
     }
     register("androidFeature") {
-      id = "codewithdk.android.feature"
+      id = "dineshktech.android.feature"
       implementationClass = "AndroidFeaturePlugin"
     }
     register("androidLibraryJacoco") {
-      id = "codewithdk.android.library.jacoco"
+      id = "dineshktech.android.library.jacoco"
       implementationClass = "AndroidLibraryJacocoPlugin"
     }
     register("androidTest") {
-      id = "codewithdk.android.test"
+      id = "dineshktech.android.test"
       implementationClass = "AndroidTestPlugin"
     }
     register("firebase-perf") {
-      id = "codewithdk.firebase-perf"
+      id = "dineshktech.firebase-perf"
       implementationClass = "FirebasePerfPlugin"
     }
   }

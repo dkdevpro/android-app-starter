@@ -13,16 +13,13 @@ dependencyResolutionManagement {
     mavenCentral()
   }
 }
-rootProject.name = "android-boilerplate-latest"
+rootProject.name = "android-app-starter"
 include(":app")
-include(":core:navigation")
-include(":feature:add-notes")
-//include(":feature-edit-notes")
-//include(":feature-notes-list")
 include(":core:common")
 include(":core:data")
 include(":core:database")
 include(":core:model")
 include(":core:network")
-include(":core:ui")
+//include(":core:ui")
+include(":feature:add-notes")
 

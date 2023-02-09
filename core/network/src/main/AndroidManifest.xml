@@ -1,4 +1,4 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="dev.codewithdk.minimalist.core.network">
+    package="dev.dineshktech.app.starter.core.network">
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

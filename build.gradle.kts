@@ -13,8 +13,4 @@ plugins {
   alias(libs.plugins.kotlin.serialization) apply false
   alias(libs.plugins.hilt) apply false
   alias(libs.plugins.secrets) apply false
-  alias(libs.plugins.spotless) apply false
 }
-//task clean(type: Delete) {
-//  delete rootProject.buildDir
-//}

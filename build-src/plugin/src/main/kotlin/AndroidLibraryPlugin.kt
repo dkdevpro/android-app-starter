@@ -1,6 +1,6 @@
 import com.android.build.gradle.LibraryExtension
-import dev.codewithdk.minimalist.configureFlavors
-import dev.codewithdk.minimalist.configureKotlinAndroid
+import dev.dineshktech.app.starter.configureFlavors
+import dev.dineshktech.app.starter.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension

@@ -7,7 +7,6 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
 class AndroidFeaturePlugin : Plugin<Project> {
-
   override fun apply(target: Project) {
     with(target) {
       pluginManager.apply {
@@ -25,13 +24,9 @@ class AndroidFeaturePlugin : Plugin<Project> {
 
       dependencies {
         add("implementation", project(":core:model"))
-        add("implementation", project(":core:ui"))
+        //add("implementation", project(":core:ui"))
         add("implementation", project(":core:data"))
         add("implementation", project(":core:common"))
-        add("implementation", project(":core:navigation"))
-
-//        add("testImplementation", project(":core-testing"))
-//        add("androidTestImplementation", project(":core-testing"))
 
         add("implementation", libs.findLibrary("androidx.hilt.navigation.compose").get())
         add("implementation", libs.findLibrary("androidx.lifecycle.runtimeCompose").get())
@@ -39,13 +34,6 @@ class AndroidFeaturePlugin : Plugin<Project> {
         add("implementation", libs.findLibrary("kotlinx.coroutines.android").get())
         add("implementation", libs.findLibrary("hilt.android").get())
         add("kapt", libs.findLibrary("hilt.compiler").get())
-
-        // TODO : Remove this dependency once we upgrade to Android Studio Dolphin b/228889042
-        // These dependencies are currently necessary to render Compose previews
-        add(
-          "debugImplementation",
-          libs.findLibrary("androidx.customview.poolingcontainer").get()
-        )
       }
     }
   }

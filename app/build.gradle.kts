@@ -1,20 +1,20 @@
-import dev.codewithdk.minimalist.Flavor
-import dev.codewithdk.minimalist.FlavorDimension
+import dev.dineshktech.app.starter.Flavor
+import dev.dineshktech.app.starter.FlavorDimension
 
 plugins {
-  id("codewithdk.android.application")
-  id("codewithdk.android.application.compose")
-  id("codewithdk.android.application.jacoco")
+  id("dineshktech.android.application")
+  id("dineshktech.android.application.compose")
+  id("dineshktech.android.application.jacoco")
   kotlin("kapt")
   id("jacoco")
   id("dagger.hilt.android.plugin")
-  id("codewithdk.firebase-perf")
+  id("dineshktech.firebase-perf")
 }
 
 android {
 
   defaultConfig {
-    applicationId = "dev.codewithdk.minimalist"
+    applicationId = "dev.dineshktech.app.starter"
     versionCode = 1
     versionName = "1.0"
 
@@ -59,27 +59,12 @@ android {
 
 dependencies {
 
-//  implementation(project(":core-ui"))
-//  implementation(project(":core-designsystem"))
-//  implementation(project(":core-navigation"))
-//
-//  implementation(project(":sync"))
-//
-//  androidTestImplementation(project(":core-testing"))
-//  androidTestImplementation(project(":core-datastore-test"))
-//  androidTestImplementation(project(":core-data-test"))
-//  androidTestImplementation(project(":core-network"))
   androidTestImplementation(libs.androidx.navigation.testing)
-  debugImplementation(libs.androidx.compose.ui.testManifest)
-
   implementation(libs.androidx.activity.compose)
   implementation(libs.androidx.appcompat)
   implementation(libs.androidx.core.ktx)
-  implementation(libs.androidx.core.splashscreen)
-  implementation(libs.androidx.compose.material3.windowSizeClass)
   implementation(libs.androidx.window.manager)
   implementation(libs.androidx.profileinstaller)
-
   implementation(libs.hilt.android)
   kapt(libs.hilt.compiler)
   kaptAndroidTest(libs.hilt.compiler)
@@ -94,22 +79,11 @@ dependencies {
   }
 }
 dependencies {
-  //implementation(project(":core-ui"))
-  //implementation(project(":core-designsystem"))
-  //implementation(project(":core-navigation"))
 
-  //androidTestImplementation(project(":core-testing"))
-  //androidTestImplementation(project(":core-datastore-test"))
-  //androidTestImplementation(project(":core-data-test"))
-  //androidTestImplementation(project(":core-network"))
   androidTestImplementation(libs.androidx.navigation.testing)
-  debugImplementation(libs.androidx.compose.ui.testManifest)
-
   implementation(libs.androidx.activity.compose)
   implementation(libs.androidx.appcompat)
   implementation(libs.androidx.core.ktx)
-  implementation(libs.androidx.core.splashscreen)
-  implementation(libs.androidx.compose.material3.windowSizeClass)
   implementation(libs.androidx.window.manager)
   implementation(libs.androidx.profileinstaller)
   implementation(libs.hilt.android)

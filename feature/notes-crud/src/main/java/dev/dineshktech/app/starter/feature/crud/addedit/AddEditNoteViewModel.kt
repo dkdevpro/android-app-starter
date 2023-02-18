@@ -37,5 +37,4 @@ class AddEditNoteViewModel @Inject constructor(
     suspend fun onSaveNote() {
         notesRepository.insertNote(Note(1, "", "", 1, isFavourite = false))
     }
-
 }

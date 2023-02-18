@@ -20,8 +20,8 @@ Creating an Android app from scratch is time-consuming and challenging. The Andr
 ## Screenshots
 
 <p float="left">
-  <img src="screenshots/Screenshot_20230219_000919.png)" width="32%" />
-  <img src="screenshots/Screenshot_20230219_001001.png)" width="32%" />
+  <img src="screenshots/Screenshot_20230219_000919.png" width="32%" />
+  <img src="screenshots/Screenshot_20230219_001001.png" width="32%" />
 </p>
 
 ## How to use (emoji): TBD

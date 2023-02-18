@@ -1,5 +1,4 @@
+// TODO: Remove once https://youtrack.jetbrains.com/issue/KTIJ-19369 is fixed
 plugins {
-    id("dineshktech.android.library")
-    id("dineshktech.android.library.jacoco")
-    id("dineshktech.android.hilt")
+    id("kotlin")
 }

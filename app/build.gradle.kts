@@ -1,13 +1,10 @@
 import dev.dineshktech.app.starter.Flavor
 import dev.dineshktech.app.starter.FlavorDimension
-
 plugins {
   id("dineshktech.android.application")
   id("dineshktech.android.application.compose")
   id("dineshktech.android.application.jacoco")
-  kotlin("kapt")
-  id("jacoco")
-  id("dagger.hilt.android.plugin")
+  id("dineshktech.android.hilt")
   id("dineshktech.firebase-perf")
 }
 
@@ -59,43 +56,31 @@ android {
 
 dependencies {
 
-  androidTestImplementation(libs.androidx.navigation.testing)
-  implementation(libs.androidx.activity.compose)
-  implementation(libs.androidx.appcompat)
-  implementation(libs.androidx.core.ktx)
-  implementation(libs.androidx.window.manager)
-  implementation(libs.androidx.profileinstaller)
-  implementation(libs.hilt.android)
-  kapt(libs.hilt.compiler)
-  kaptAndroidTest(libs.hilt.compiler)
-
-  // androidx.test is forcing JUnit, 4.12. This forces it to use 4.13
-  configurations.configureEach {
-    resolutionStrategy {
-      force(libs.junit4)
-      // Temporary workaround for https://issuetracker.google.com/174733673
-      force("org.objenesis:objenesis:2.6")
-    }
-  }
-}
-dependencies {
+  //Domain module dependencies
+  implementation(project(":core:common"))
+  implementation(project(":core:data"))
+  implementation(project(":core:model"))
+  implementation(project(":feature:notes-favorite"))
+  implementation(project(":feature:notes-crud"))
 
   androidTestImplementation(libs.androidx.navigation.testing)
   implementation(libs.androidx.activity.compose)
+  implementation(libs.androidx.compose.runtime)
   implementation(libs.androidx.appcompat)
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.window.manager)
-  implementation(libs.androidx.profileinstaller)
-  implementation(libs.hilt.android)
-  kapt(libs.hilt.compiler)
-  kaptAndroidTest(libs.hilt.compiler)
+  implementation(libs.accompanist.systemuicontroller)
+  implementation(libs.androidx.compose.material3.windowSizeClass)
 
-  // androidx.test is forcing JUnit, 4.12. This forces it to use 4.13
-  configurations.configureEach {
-    resolutionStrategy {
-      force(libs.junit4)
-      // Temporary workaround for https://issuetracker.google.com/174733673
-      force("org.objenesis:objenesis:2.6")
-    }
-  }
+  // Compose navigation
+  implementation(libs.androidx.hilt.navigation.compose)
+  implementation(libs.androidx.navigation.compose)
+  implementation(libs.androidx.hilt.navigation.compose)
+  androidTestImplementation(libs.androidx.navigation.testing)
+
+  // Material3
+  api(libs.androidx.compose.material.iconsExtended)
+  api(libs.androidx.compose.material3)
+
+  implementation(libs.androidx.profileinstaller)
 }

@@ -3,8 +3,7 @@
 plugins {
     id("dineshktech.android.library")
     id("dineshktech.android.library.jacoco")
-    kotlin("kapt")
-    id("dagger.hilt.android.plugin")
+    id("dineshktech.android.hilt")
     alias(libs.plugins.ksp)
 }
 
@@ -21,11 +20,4 @@ dependencies {
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
 
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.datetime)
-
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
-
-    //androidTestImplementation(project(":core-testing"))
 }

@@ -2,16 +2,16 @@ package dev.dineshktech.app.starter.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import dev.dineshktech.app.starter.database.dao.NotesDao
-import dev.dineshktech.app.starter.database.model.NotesEntity
+import dev.dineshktech.app.starter.database.dao.NotesyDao
+import dev.dineshktech.app.starter.database.model.NotesyEntity
 
 @Database(
     entities = [
-        NotesEntity::class,
+        NotesyEntity::class,
     ],
     version = 1,
     exportSchema = true,
 )
 abstract class NotesDatabase : RoomDatabase() {
-    abstract fun noteDao(): NotesDao
+    abstract fun notesyDao(): NotesyDao
 }

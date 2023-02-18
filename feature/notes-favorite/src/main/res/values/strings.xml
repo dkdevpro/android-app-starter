@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fav_notes">Fav Notes</string>
+    <string name="fav_notes_empty_error">No favorite notes</string>
+    <string name="fav_notes_empty_description">Selected favorite notes will be shown here</string>
+</resources>

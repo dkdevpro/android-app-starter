@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notes">Notes</string>
+    <string name="notes_empty_error">No saved notes</string>
+    <string name="notes_empty_description">Notes you save will be shown here\nto read later</string>
+</resources>

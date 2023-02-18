@@ -20,5 +20,7 @@ include(":core:data")
 include(":core:database")
 include(":core:model")
 include(":core:network")
-include(":feature:add-notes")
+include(":core:domain")
+include(":feature:notes-favorite")
+include(":feature:notes-crud")
 

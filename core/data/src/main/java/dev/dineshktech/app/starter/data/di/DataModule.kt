@@ -11,7 +11,7 @@ import dev.dineshktech.app.starter.data.repository.OfflineFirstNotesRepository
 @InstallIn(SingletonComponent::class)
 interface DataModule {
     @Binds
-    fun bindsNotesRepository(
+    fun bindsNotesyRepository(
         notesRepository: OfflineFirstNotesRepository,
     ): NotesRepository
 }

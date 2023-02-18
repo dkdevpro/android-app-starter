@@ -10,9 +10,8 @@ class AndroidFeaturePlugin : Plugin<Project> {
   override fun apply(target: Project) {
     with(target) {
       pluginManager.apply {
-        apply("com.android.library")
-        apply("org.jetbrains.kotlin.android")
-        apply("org.jetbrains.kotlin.kapt")
+        apply("dineshktech.android.library")
+        apply("dineshktech.android.hilt")
       }
       extensions.configure<LibraryExtension> {
         defaultConfig {
@@ -31,8 +30,15 @@ class AndroidFeaturePlugin : Plugin<Project> {
         add("implementation", libs.findLibrary("androidx.lifecycle.runtimeCompose").get())
         add("implementation", libs.findLibrary("androidx.lifecycle.viewModelCompose").get())
         add("implementation", libs.findLibrary("kotlinx.coroutines.android").get())
-        add("implementation", libs.findLibrary("hilt.android").get())
-        add("kapt", libs.findLibrary("hilt.compiler").get())
+
+        add("api", libs.findLibrary("androidx.compose.foundation").get())
+        add("api", libs.findLibrary("androidx.compose.foundation.layout").get())
+        add("api", libs.findLibrary("androidx.compose.material.iconsExtended").get())
+        add("api", libs.findLibrary("androidx.compose.material3").get())
+        add("debugApi", libs.findLibrary("androidx.compose.ui.tooling").get())
+        add("api", libs.findLibrary("androidx.compose.ui.tooling.preview").get())
+        add("api", libs.findLibrary("androidx.compose.ui.util").get())
+        add("api", libs.findLibrary("androidx.compose.runtime").get())
       }
     }
   }

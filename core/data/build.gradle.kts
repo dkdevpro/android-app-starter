@@ -1,9 +1,8 @@
 plugins {
     id("dineshktech.android.library")
     id("dineshktech.android.library.jacoco")
-    kotlin("kapt")
+    id("dineshktech.android.hilt")
     id("kotlinx-serialization")
-    id("dagger.hilt.android.plugin")
 }
 
 dependencies {
@@ -11,12 +10,7 @@ dependencies {
     implementation(project(":core:model"))
     implementation(project(":core:database"))
     implementation(project(":core:network"))
-    //implementation(project(":core-network-ktor"))
 
-    implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.serialization.json)
-
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
 }

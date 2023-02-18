@@ -48,9 +48,14 @@ gradlePlugin {
       id = "dineshktech.android.test"
       implementationClass = "AndroidTestPlugin"
     }
+    register("androidHilt") {
+      id = "dineshktech.android.hilt"
+      implementationClass = "AndroidHiltPlugin"
+    }
     register("firebase-perf") {
       id = "dineshktech.firebase-perf"
       implementationClass = "FirebasePerfPlugin"
     }
+
   }
 }

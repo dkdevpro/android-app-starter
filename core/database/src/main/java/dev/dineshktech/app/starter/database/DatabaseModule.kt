@@ -19,6 +19,6 @@ object DatabaseModule {
     ): NotesDatabase = Room.databaseBuilder(
         context,
         NotesDatabase::class.java,
-        "notes-database",
+        "notesy-database",
     ).build()
 }

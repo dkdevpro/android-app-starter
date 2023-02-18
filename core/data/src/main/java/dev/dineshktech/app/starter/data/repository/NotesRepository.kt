@@ -4,6 +4,8 @@ import dev.dineshktech.app.starter.core.model.data.Note
 import kotlinx.coroutines.flow.Flow
 
 interface NotesRepository {
-    fun getNotesStream(): Flow<List<Note>>
-    fun getNote(id: String): Flow<Note>
+    suspend fun getNotesStream(): Flow<List<Note>>
+    suspend fun getNote(id: Int): Flow<Note>
+    suspend fun deleteNote(note: Note)
+    suspend fun insertNote(note: Note)
 }

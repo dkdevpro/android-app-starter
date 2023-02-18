@@ -71,9 +71,6 @@ A fastlane setup to automatically deploy apps to play store.
 ## Project Structure:
 TBD
 
-## Demo Video 
-
-
 ## Contributing:
 TBD
 

@@ -13,9 +13,18 @@ The idea is to setup and deliver app in just few steps.
 Feel free to raise your feedback/queries 
 
 
-## Problem statement: TBD
+## Problem statement:
 
-## How to use (emoji):
+Creating an Android app from scratch is time-consuming and challenging. The Android app starter project aims to simplify the process by providing pre-designed screens, layout templates, and basic functionality, allowing developers to focus on building the app's unique features and functionality.
+
+## Screenshots
+
+<p float="left">
+  <img src="screenshots/![Screenshot_20230219_000919](https://user-images.githubusercontent.com/1906346/219882872-5a097a9e-1aef-4cb7-880d-5b48974cac73.png)" width="32%" />
+  <img src="screenshots/![Screenshot_20230219_001001](https://user-images.githubusercontent.com/1906346/219882889-28999751-5115-40d7-b3c8-6f6c092da1d7.png)" width="32%" />
+</p>
+
+## How to use (emoji): TBD
 
 ## Features(Architectural Characteristics): `WIP`
 
@@ -61,6 +70,9 @@ A fastlane setup to automatically deploy apps to play store.
 
 ## Project Structure:
 TBD
+
+## Demo Video 
+
 
 ## Contributing:
 TBD

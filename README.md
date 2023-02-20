@@ -20,7 +20,7 @@ Creating an Android app from scratch is time-consuming and challenging. The Andr
 ## Screenshots
 
 <p float="left">
-  <img src="![Screenshot_20230219_000919](https://user-images.githubusercontent.com/1906346/219884050-18c4fcc1-9e62-4424-a1d6-d75da9569a3e.png" width="32%" />
+  <img src="screenshots/Screenshot_20230219_000919.png" width="32%" />
   <img src="screenshots/Screenshot_20230219_001001.png" width="32%" />
 </p>
 

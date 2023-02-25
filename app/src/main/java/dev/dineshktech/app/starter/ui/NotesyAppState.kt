@@ -12,9 +12,11 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import dev.dineshktech.app.starter.feature.add.navigation.favNoteNavigationRoute
 import dev.dineshktech.app.starter.feature.add.navigation.navigateToFavNote
+import dev.dineshktech.app.starter.feature.crud.addedit.navigation.navigateToAddEditNote
 import dev.dineshktech.app.starter.feature.crud.notes.navigation.navigateToNotes
 import dev.dineshktech.app.starter.feature.crud.notes.navigation.notesNavigationRoute
-import dev.dineshktech.app.starter.navigation.TopLevelDestination
+import dev.dineshktech.app.starter.navigation.NavigationDestination
+import dev.dineshktech.app.starter.navigation.ScreenDestination
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -35,20 +37,42 @@ class NotesyAppState(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val currentTopLevelDestination: TopLevelDestination?
+    val currentTopLevelDestination: NavigationDestination?
         @Composable get() = when (currentDestination?.route) {
-            notesNavigationRoute -> TopLevelDestination.NOTES
-            favNoteNavigationRoute -> TopLevelDestination.FAV_NOTE
+            notesNavigationRoute -> NavigationDestination.NOTES
+            favNoteNavigationRoute -> NavigationDestination.FAV_NOTE
             else -> null
         }
 
-    val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.values().asList()
+    val topLevelDestinations: List<NavigationDestination> = NavigationDestination.values().asList()
 
-    fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
+    fun navigateToScreenDestination(screenDestination: ScreenDestination) {
         val topLevelNavOptions = navOptions {
             // Pop up to the start destination of the graph to
             // avoid building up a large stack of destinations
             // on the back stack as users select items
+
+            popUpTo(navController.graph.findStartDestination().id) {
+                saveState = true
+            }
+            // Avoid multiple copies of the same destination when
+            // reselecting the same item
+            launchSingleTop = true
+            // Restore state when reselecting a previously selected item
+            restoreState = true
+        }
+
+        when (screenDestination) {
+            ScreenDestination.ADD_EDIT_NOTE -> navController.navigateToAddEditNote(topLevelNavOptions)
+        }
+    }
+
+    fun navigateToNavigationDestination(topLevelDestination: NavigationDestination) {
+        val topLevelNavOptions = navOptions {
+            // Pop up to the start destination of the graph to
+            // avoid building up a large stack of destinations
+            // on the back stack as users select items
+
             popUpTo(navController.graph.findStartDestination().id) {
                 saveState = true
             }
@@ -60,8 +84,8 @@ class NotesyAppState(
         }
 
         when (topLevelDestination) {
-            TopLevelDestination.NOTES -> navController.navigateToNotes(topLevelNavOptions)
-            TopLevelDestination.FAV_NOTE -> navController.navigateToFavNote(topLevelNavOptions)
+            NavigationDestination.NOTES -> navController.navigateToNotes(topLevelNavOptions)
+            NavigationDestination.FAV_NOTE -> navController.navigateToFavNote(topLevelNavOptions)
         }
     }
 

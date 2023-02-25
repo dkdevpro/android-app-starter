@@ -6,9 +6,11 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,7 +23,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.outlined.TaskAlt
+import androidx.compose.material.icons.filled.TaskAlt
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -30,6 +32,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -40,6 +43,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.launch
 
 val RedOrange = Color(0xFFFF9E80)
@@ -70,8 +74,21 @@ internal fun AddEditScreen(
             Color(RedOrange.value),
         )
     }
-
     val scope = rememberCoroutineScope()
+    val systemUiController = rememberSystemUiController()
+    val useDarkIcons = !isSystemInDarkTheme()
+
+    DisposableEffect(systemUiController, useDarkIcons) {
+        // Update all of the system bar colors to be transparent, and use
+        // dark icons if we're in light theme
+        systemUiController.setSystemBarsColor(
+            color = Color.Transparent,
+            darkIcons = useDarkIcons,
+            isNavigationBarContrastEnforced = false,
+        )
+        onDispose { }
+    }
+
     Scaffold(
         topBar = {
             AddEditScreenTopAppBar(
@@ -84,60 +101,66 @@ internal fun AddEditScreen(
             )
         },
     ) { padding ->
-
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .background(noteBackgroundAnimatable.value)
-                .padding(16.dp),
-        ) {
-            NoteColorPicker(
-                onColorPicked = { colorInt ->
-                    scope.launch {
-                        noteBackgroundAnimatable.animateTo(
-                            targetValue = Color(colorInt),
-                            animationSpec = tween(
-                                durationMillis = 500,
-                            ),
-                        )
-                    }
-                },
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            NotesyAddEditTextField(
-                text = "",
-                hint = "Title",
-                onValueChange = {
-                    // onValueChange -recomposition required
-                },
-                singleLine = true,
-                textStyle = MaterialTheme.typography.bodyLarge,
-                fontSize = 25.sp,
-                requestFocus = true,
-                textSelectionColor = if (noteBackgroundAnimatable.value == BlueColor) BrownColor else BlueColor,
-                noteBackgroundColor = noteBackgroundAnimatable.value,
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            NotesyAddEditTextField(
-                modifier = Modifier
-                    .fillMaxHeight(),
-                text = "",
-                hint = "Text",
-                onValueChange = {
-                    // onValueChange - recomposition required
-                },
-                singleLine = false,
-                textStyle = MaterialTheme.typography.bodyMedium,
-                fontSize = 16.sp,
-                textSelectionColor = if (noteBackgroundAnimatable.value == BlueColor) BrownColor else BlueColor,
-                noteBackgroundColor = noteBackgroundAnimatable.value,
-            )
+        NoteEditor(padding, noteBackgroundAnimatable.value) {
+            scope.launch {
+                noteBackgroundAnimatable.animateTo(
+                    targetValue = Color(it),
+                    animationSpec = tween(
+                        durationMillis = 500,
+                    ),
+                )
+            }
         }
+    }
+}
+
+@Composable
+fun NoteEditor(padding: PaddingValues, color: Color, onColorPicked: (Int) -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(padding)
+            .background(color)
+            .padding(16.dp),
+    ) {
+        NoteColorPicker(
+            onColorPicked = { colorInt ->
+                onColorPicked(colorInt)
+            },
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        NotesyAddEditTextField(
+            text = "",
+            hint = "Title",
+            onValueChange = {
+                // onValueChange -recomposition required
+            },
+            singleLine = true,
+            textStyle = MaterialTheme.typography.bodyLarge,
+            fontSize = 25.sp,
+            requestFocus = true,
+            textSelectionColor = if (color == BlueColor) BrownColor else BlueColor,
+            noteBackgroundColor = color,
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        NotesyAddEditTextField(
+            modifier = Modifier
+                .fillMaxHeight(),
+            text = "",
+            hint = "Add notes in detail",
+            onValueChange = {
+                // onValueChange - recomposition required
+            },
+            singleLine = false,
+            textStyle = MaterialTheme.typography.bodyMedium,
+            fontSize = 16.sp,
+            textSelectionColor = if (color == BlueColor) BrownColor else BlueColor,
+            noteBackgroundColor = color,
+        )
     }
 }
 
@@ -184,26 +207,32 @@ fun AddEditScreenTopAppBar(
     onNoteSaved: () -> Unit,
 ) {
     TopAppBar(
-        title = { Text("") },
+        title = { Text("Add Note") },
         navigationIcon = {
             IconButton(
                 onClick = { onBackClicked() },
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.surface),
             ) {
                 Icon(
-                    Icons.Filled.ArrowBack,
+                    Icons.Default.ArrowBack,
                     contentDescription = "Back arrow",
-                    tint = MaterialTheme.colorScheme.onSecondary,
+                    tint = MaterialTheme.colorScheme.outline,
                 )
             }
         },
         actions = {
             IconButton(
                 onClick = { onNoteSaved() },
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.surface),
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.TaskAlt,
+                    imageVector = Icons.Default.TaskAlt,
                     contentDescription = "Save note",
-                    tint = MaterialTheme.colorScheme.onSecondary,
+                    tint = MaterialTheme.colorScheme.outline,
                 )
             }
         },

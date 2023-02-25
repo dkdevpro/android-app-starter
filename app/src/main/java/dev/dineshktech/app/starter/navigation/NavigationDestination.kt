@@ -7,7 +7,7 @@ import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.List
 import dev.dineshktech.app.starter.icon.AppIcons
 
-enum class TopLevelDestination(
+enum class NavigationDestination(
     val selectedIcon: AppIcons,
     val unselectedIcon: AppIcons,
     val iconTextId: Int,

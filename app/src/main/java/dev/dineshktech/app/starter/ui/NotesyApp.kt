@@ -1,5 +1,8 @@
 package dev.dineshktech.app.starter.ui
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
@@ -36,7 +39,8 @@ import dev.dineshktech.app.starter.component.NotesyNavigationBar
 import dev.dineshktech.app.starter.component.NotesyNavigationBarItem
 import dev.dineshktech.app.starter.icon.AppIcons
 import dev.dineshktech.app.starter.navigation.AppNavHost
-import dev.dineshktech.app.starter.navigation.TopLevelDestination
+import dev.dineshktech.app.starter.navigation.NavigationDestination
+import dev.dineshktech.app.starter.navigation.ScreenDestination
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -57,16 +61,20 @@ fun NotesyApp(
             contentWindowInsets = WindowInsets(0, 0, 0, 0),
             floatingActionButtonPosition = FabPosition.End,
             floatingActionButton = {
-                FloatingActionButton(onClick = {
-                    // Add note
-                }, shape = CircleShape) {
-                    Icon(Icons.Filled.Add, contentDescription = "Add Note")
+                val shouldShowFab = appState.topLevelDestinations.any { appState.currentDestination.isTopLevelDestinationInHierarchy(it) }
+                AnimatedVisibility(visible = shouldShowFab, enter = fadeIn(), exit = fadeOut()) {
+                    FloatingActionButton(onClick = {
+                        // Launch add note screen
+                        appState.navigateToScreenDestination(ScreenDestination.ADD_EDIT_NOTE)
+                    }, shape = CircleShape) {
+                        Icon(Icons.Filled.Add, contentDescription = "Add Note")
+                    }
                 }
             },
             bottomBar = {
-                NotesyBottomBar(
+                NotesyNavigationBottomBar(
                     destinations = appState.topLevelDestinations,
-                    onNavigateToDestination = appState::navigateToTopLevelDestination,
+                    onNavigateToDestination = appState::navigateToNavigationDestination,
                     currentDestination = appState.currentDestination,
                     modifier = Modifier.testTag("NotesyBottomBar"),
                 )
@@ -94,46 +102,53 @@ fun NotesyApp(
     }
 }
 
+/**
+ * A navigation bottom bar that draws navigation item
+ */
 @Composable
-private fun NotesyBottomBar(
-    destinations: List<TopLevelDestination>,
-    onNavigateToDestination: (TopLevelDestination) -> Unit,
+private fun NotesyNavigationBottomBar(
+    destinations: List<NavigationDestination>,
+    onNavigateToDestination: (NavigationDestination) -> Unit,
     currentDestination: NavDestination?,
     modifier: Modifier = Modifier,
 ) {
-    NotesyNavigationBar(
-        modifier = modifier,
-    ) {
-        destinations.forEach { destination ->
-            val selected = currentDestination.isTopLevelDestinationInHierarchy(destination)
-            NotesyNavigationBarItem(
-                selected = selected,
-                onClick = { onNavigateToDestination(destination) },
-                icon = {
-                    val icon = if (selected) {
-                        destination.selectedIcon
-                    } else {
-                        destination.unselectedIcon
-                    }
-                    when (icon) {
-                        is AppIcons.ImageVectorIcon -> Icon(
-                            imageVector = icon.imageVector,
-                            contentDescription = null,
-                        )
+    val shouldShowNavigationBar =
+        destinations.any { currentDestination.isTopLevelDestinationInHierarchy(it) }
+    AnimatedVisibility(visible = shouldShowNavigationBar, enter = fadeIn(), exit = fadeOut()) {
+        NotesyNavigationBar(
+            modifier = modifier,
+        ) {
+            destinations.forEach { destination ->
+                val selected = currentDestination.isTopLevelDestinationInHierarchy(destination)
+                NotesyNavigationBarItem(
+                    selected = selected,
+                    onClick = { onNavigateToDestination(destination) },
+                    icon = {
+                        val icon = if (selected) {
+                            destination.selectedIcon
+                        } else {
+                            destination.unselectedIcon
+                        }
+                        when (icon) {
+                            is AppIcons.ImageVectorIcon -> Icon(
+                                imageVector = icon.imageVector,
+                                contentDescription = null,
+                            )
 
-                        is AppIcons.DrawableResourceIcon -> Icon(
-                            painter = painterResource(id = icon.id),
-                            contentDescription = null,
-                        )
-                    }
-                },
-                label = { Text(stringResource(destination.iconTextId)) },
-            )
+                            is AppIcons.DrawableResourceIcon -> Icon(
+                                painter = painterResource(id = icon.id),
+                                contentDescription = null,
+                            )
+                        }
+                    },
+                    label = { Text(stringResource(destination.iconTextId)) },
+                )
+            }
         }
     }
 }
 
-private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLevelDestination) =
+private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: NavigationDestination) =
     this?.hierarchy?.any {
         it.route?.contains(destination.name, true) ?: false
     } ?: false

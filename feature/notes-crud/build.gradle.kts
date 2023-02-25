@@ -7,4 +7,5 @@ plugins {
 
 dependencies {
     implementation(libs.androidx.compose.material3.windowSizeClass)
+    implementation(libs.accompanist.systemuicontroller)
 }

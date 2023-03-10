@@ -18,7 +18,7 @@ interface NotesyDao {
         WHERE id = :id
     """,
     )
-    fun getNotes(id: String): Flow<NotesyEntity>
+    fun getNote(id: Int): Flow<NotesyEntity>
 
     @Query(value = "SELECT * FROM notesy")
     fun getNoteEntitiesStream(): Flow<List<NotesyEntity>>

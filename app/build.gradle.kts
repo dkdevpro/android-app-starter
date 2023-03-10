@@ -75,7 +75,6 @@ dependencies {
   // Compose navigation
   implementation(libs.androidx.hilt.navigation.compose)
   implementation(libs.androidx.navigation.compose)
-  implementation(libs.androidx.hilt.navigation.compose)
   androidTestImplementation(libs.androidx.navigation.testing)
 
   // Material3

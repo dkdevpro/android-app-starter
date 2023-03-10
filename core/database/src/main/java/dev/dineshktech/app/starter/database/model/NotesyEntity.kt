@@ -12,12 +12,17 @@ data class NotesyEntity(
     val id: Int,
     val title: String,
     val content: String,
+    val timestamp: Long,
+    val color: Int,
+    val isFavourite: Boolean,
 )
 
 fun NotesyEntity.asExternalModel() = Note(
     id = id,
     title = title,
     content = content,
-    color = 1,
-    isFavourite = true,
+    timestamp = timestamp,
+    color = color,
+    isFavourite = isFavourite,
 )
+

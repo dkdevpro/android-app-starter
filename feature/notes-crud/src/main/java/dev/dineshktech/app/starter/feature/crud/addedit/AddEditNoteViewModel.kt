@@ -33,8 +33,7 @@ class AddEditNoteViewModel @Inject constructor(
 
     private val _mutableNoteState = mutableStateOf(Note())
     val notesState: State<Note> = _mutableNoteState
-
     suspend fun onSaveNote() {
-        notesRepository.insertNote(Note(1, "", "", 1, isFavourite = false))
+        notesRepository.upsertNote(Note(1, "", "", 1, isFavourite = false))
     }
 }

@@ -17,23 +17,24 @@ class AddEditNoteViewModel @Inject constructor(
     private val notesRepository: NotesRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
+
+    private val _mutableNoteState = mutableStateOf(Note())
+    val notesState: State<Note> = _mutableNoteState
     init {
         savedStateHandle.get<Int>("noteId")?.let { noteId ->
             if (noteId != -1) {
                 viewModelScope.launch {
                     notesRepository.getNote(noteId).map { note ->
-                        currentNoteId = note.id
+                        _mutableNoteState.value = note
                     }
                 }
             }
         }
     }
 
-    private var currentNoteId: Int? = null
-
-    private val _mutableNoteState = mutableStateOf(Note())
-    val notesState: State<Note> = _mutableNoteState
-    suspend fun onSaveNote() {
-        notesRepository.upsertNote(Note(1, "", "", 1, isFavourite = false))
+    fun upsertNote(note: Note) {
+        viewModelScope.launch {
+            notesRepository.upsertNote(note)
+        }
     }
 }

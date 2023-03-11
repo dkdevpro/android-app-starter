@@ -1,4 +1,4 @@
-package dev.dineshktech.app.starter.core.domain.utils
+package dev.dineshktech.app.starter.data.utils
 
 sealed class OrderType {
     object Ascending : OrderType()

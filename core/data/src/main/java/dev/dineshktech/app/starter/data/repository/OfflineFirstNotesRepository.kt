@@ -12,13 +12,13 @@ import javax.inject.Inject
 class OfflineFirstNotesRepository @Inject constructor(
     private val notesyDao: NotesyDao,
 ) : NotesRepository {
-    override suspend fun getNotesStream(): Flow<List<Note>> {
+    override fun getNotesStream(): Flow<List<Note>> {
         return notesyDao.getNoteEntitiesStream().map {
             it.map(NotesyEntity::asExternalModel)
         }
     }
 
-    override suspend fun getNote(id: Int): Flow<Note> {
+    override fun getNote(id: Int): Flow<Note> {
         return notesyDao.getNote(id).map { it.asExternalModel() }
     }
 

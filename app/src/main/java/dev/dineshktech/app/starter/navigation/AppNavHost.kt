@@ -23,6 +23,6 @@ fun AppNavHost(
     ) {
         notesScreen()
         favNoteScreen()
-        addEditNoteScreen()
+        addEditNoteScreen(onBackClick = { navController.navigateUp() })
     }
 }

@@ -33,18 +33,25 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import dev.dineshktech.app.starter.core.model.data.Note
 import kotlinx.coroutines.launch
+import java.util.*
 
 val RedOrange = Color(0xFFFF9E80)
 val Violet = Color(0xFFEA80FC)
@@ -55,11 +62,15 @@ val noteColors =
 
 @Composable
 fun AddEditScreen(
+    noteId: Int?,
     modifier: Modifier = Modifier,
     viewModel: AddEditNoteViewModel = hiltViewModel(),
+    onBackClick: (String) -> Unit,
 ) {
     AddEditScreen(
         modifier = modifier,
+        viewModel = viewModel,
+        onBackClick = onBackClick,
     )
 }
 
@@ -68,6 +79,8 @@ fun AddEditScreen(
 @Composable
 internal fun AddEditScreen(
     modifier: Modifier = Modifier,
+    viewModel: AddEditNoteViewModel,
+    onBackClick: (String) -> Unit,
 ) {
     val noteBackgroundAnimatable = remember {
         Animatable(
@@ -88,20 +101,35 @@ internal fun AddEditScreen(
         )
         onDispose { }
     }
-
+    var titleTextState by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+        mutableStateOf(TextFieldValue())
+    }
+    var contentTextState by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+        mutableStateOf(TextFieldValue())
+    }
     Scaffold(
         topBar = {
             AddEditScreenTopAppBar(
                 onBackClicked = {
                     // handle onback click
+                    onBackClick("back press")
                 },
                 onNoteSaved = {
                     // OnNoteSaved
+                    viewModel.upsertNote(Note(Random().nextInt(), titleTextState.text, contentTextState.text))
+                    onBackClick("back press")
                 },
             )
         },
     ) { padding ->
-        NoteEditor(padding, noteBackgroundAnimatable.value) {
+        NoteEditor(
+            titleTextState = titleTextState,
+            onTitleTextChanged = { titleTextState = it },
+            contentTextState = contentTextState,
+            onContentTextChanged = { contentTextState = it },
+            padding = padding,
+            noteBackgroundAnimatable.value,
+        ) {
             scope.launch {
                 noteBackgroundAnimatable.animateTo(
                     targetValue = Color(it),
@@ -115,7 +143,15 @@ internal fun AddEditScreen(
 }
 
 @Composable
-fun NoteEditor(padding: PaddingValues, color: Color, onColorPicked: (Int) -> Unit) {
+fun NoteEditor(
+    titleTextState: TextFieldValue,
+    onTitleTextChanged: (TextFieldValue) -> Unit,
+    contentTextState: TextFieldValue,
+    onContentTextChanged: (TextFieldValue) -> Unit,
+    padding: PaddingValues,
+    color: Color,
+    onColorPicked: (Int) -> Unit,
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -132,11 +168,9 @@ fun NoteEditor(padding: PaddingValues, color: Color, onColorPicked: (Int) -> Uni
         Spacer(modifier = Modifier.height(10.dp))
 
         NotesyAddEditTextField(
-            text = "",
+            textFieldValue = titleTextState,
             hint = "Title",
-            onValueChange = {
-                // onValueChange -recomposition required
-            },
+            onValueChange = { onTitleTextChanged(it) },
             singleLine = true,
             textStyle = MaterialTheme.typography.bodyLarge,
             fontSize = 25.sp,
@@ -150,11 +184,9 @@ fun NoteEditor(padding: PaddingValues, color: Color, onColorPicked: (Int) -> Uni
         NotesyAddEditTextField(
             modifier = Modifier
                 .fillMaxHeight(),
-            text = "",
+            textFieldValue = contentTextState,
             hint = "Add notes in detail",
-            onValueChange = {
-                // onValueChange - recomposition required
-            },
+            onValueChange = { onContentTextChanged(it) },
             singleLine = false,
             textStyle = MaterialTheme.typography.bodyMedium,
             fontSize = 16.sp,

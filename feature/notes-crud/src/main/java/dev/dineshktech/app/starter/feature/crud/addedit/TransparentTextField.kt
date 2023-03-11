@@ -18,19 +18,21 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.TextUnit
 
 val NoteTextColor = Color(0xFF181A21)
 val BlueColor = Color(0xFF366DF8)
 val DefaultColor = Color(0xFF181A21)
 val BrownColor = Color(0xFF252525)
+val DefaultNoteBgColor = Color(0xFF353535)
 
 @Composable
 fun NotesyAddEditTextField(
-    text: String,
+    textFieldValue: TextFieldValue,
     hint: String,
     modifier: Modifier = Modifier,
-    onValueChange: (String) -> Unit,
+    onValueChange: (TextFieldValue) -> Unit,
     textStyle: TextStyle = TextStyle(),
     singleLine: Boolean = false,
     fontSize: TextUnit,
@@ -57,7 +59,7 @@ fun NotesyAddEditTextField(
             modifier = modifier
                 .fillMaxWidth()
                 .focusRequester(focusRequester),
-            value = text,
+            value = textFieldValue,
             onValueChange = onValueChange,
             singleLine = singleLine,
             cursorBrush = SolidColor(color),
@@ -69,7 +71,7 @@ fun NotesyAddEditTextField(
             Box(
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                if (text.isBlank()) {
+                if (textFieldValue.text.isBlank()) {
                     Text(
                         modifier = Modifier.alpha(alpha = 0.5F),
                         text = hint,

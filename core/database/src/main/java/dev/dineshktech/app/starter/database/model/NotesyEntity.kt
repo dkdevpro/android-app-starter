@@ -25,4 +25,3 @@ fun NotesyEntity.asExternalModel() = Note(
     color = color,
     isFavourite = isFavourite,
 )
-

@@ -9,11 +9,11 @@ class UpsertNotesUseCase @Inject constructor(
     private val notesRepository: NotesRepository,
 ) {
     suspend operator fun invoke(note: Note) {
-        if(note.title.isNotBlank() || note.content.isNotBlank()) {
+        if (note.title.isNotBlank() || note.content.isNotBlank()) {
             notesRepository.upsertNote(note)
-        } else if(note.title.isBlank()) {
+        } else if (note.title.isBlank()) {
             throw InvalidNoteException("title can't be empty")
-        } else if(note.content.isBlank()) {
+        } else if (note.content.isBlank()) {
             throw InvalidNoteException("content can't be empty")
         }
     }

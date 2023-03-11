@@ -13,18 +13,18 @@ class GetNotesUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(notesOrder: NotesOrder = NotesOrder.Date(OrderType.Ascending)): Flow<List<Note>> {
         return notesRepository.getNotesStream().map { notes ->
-            when(notesOrder.orderType){
+            when (notesOrder.orderType) {
                 is OrderType.Ascending -> {
-                    when(notesOrder){
+                    when (notesOrder) {
                         is NotesOrder.Title -> notes.sortedBy { it.title.lowercase() }
-                        is NotesOrder.Date -> notes.sortedBy { it.timestamp}
+                        is NotesOrder.Date -> notes.sortedBy { it.timestamp }
                         is NotesOrder.Color -> notes.sortedBy { it.color }
                     }
                 }
                 is OrderType.Descending -> {
-                    when(notesOrder){
+                    when (notesOrder) {
                         is NotesOrder.Title -> notes.sortedByDescending { it.title.lowercase() }
-                        is NotesOrder.Date -> notes.sortedByDescending { it.timestamp}
+                        is NotesOrder.Date -> notes.sortedByDescending { it.timestamp }
                         is NotesOrder.Color -> notes.sortedByDescending { it.color }
                     }
                 }

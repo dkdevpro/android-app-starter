@@ -19,7 +19,7 @@ class OfflineFirstNotesRepository @Inject constructor(
     }
 
     override suspend fun getNote(id: Int): Flow<Note> {
-       return notesyDao.getNote(id).map { it.asExternalModel() }
+        return notesyDao.getNote(id).map { it.asExternalModel() }
     }
 
     override suspend fun deleteNote(note: Note) {
@@ -27,6 +27,6 @@ class OfflineFirstNotesRepository @Inject constructor(
     }
 
     override suspend fun upsertNote(note: Note) {
-       notesyDao.upsertNotes(arrayListOf(note.asExternalModel()))
+        notesyDao.upsertNotes(arrayListOf(note.asExternalModel()))
     }
 }
